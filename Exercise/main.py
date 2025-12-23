@@ -22,16 +22,14 @@ photos = [
 # объявляем словарь, где будут храниться фотографии сгруппированные по тематике
 photo_groups = {}
 
-def intersection(lst1, lst2):
- return "_".join([value for value in lst1 if value in lst2])
-
-
 # Вложенная пара циклов для создания пар сравнения
-for i in range (1, len(photos)):
- for j in range (i+1, len(photos) + 1):
-  print(f'intersection photo {i} with photo {j}')
-  lst = intersection(photos[i - 1]["tags"], photos[j-1]['tags'])
+for i in range (len(photos)):
+ for j in range (i+1, len(photos)):
+  print(f'Объединение фото {i} с фото {j}')
+  lst = photos[i]['tags'].intersection(photos[j]['tags'])
+  print(f'Объединенные тэги у фото: {lst}')
   if lst:
-   n = photo_groups.setdefault(lst, list((photos[i - 1]["name"], photos[j - 1]["name"])))
+   key = "_".join(sorted(lst))
+   photo_groups.setdefault(key, list((photos[i]["name"], photos[j]["name"])))
 print(photo_groups)
 
